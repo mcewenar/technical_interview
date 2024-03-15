@@ -1,8 +1,7 @@
 package com.example.demo.model.author;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Embeddable;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Objects;
@@ -10,12 +9,13 @@ import java.util.Objects;
 
 @Data
 @NoArgsConstructor
+@Embeddable
 public class AuthorName {
 
-    private String value;
+    private String authorNameAuthor;
 
-    public AuthorName(String value) {
-        Objects.requireNonNull(value, "AuthorName can not be null");
-        this.value = value;
+    public AuthorName(String authorNameAuthor) {
+        Objects.requireNonNull(authorNameAuthor, "AuthorName can not be null");
+        this.authorNameAuthor = authorNameAuthor;
     }
 }

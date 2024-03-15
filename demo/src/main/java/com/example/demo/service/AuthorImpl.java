@@ -39,6 +39,7 @@ public class AuthorImpl implements AuthorServ {
 
     @Override
     public void deleteAuthorById(Integer cc) {
+        author.deleteById(cc);
 
     }
 }

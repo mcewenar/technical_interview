@@ -1,18 +1,19 @@
 package com.example.demo.model.book;
 
+import jakarta.persistence.Embeddable;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Data
 @NoArgsConstructor
+@Embeddable
 public class Name {
-    private String value;
+    private String nameBook;
 
-    public Name(String value) {
-        Objects.requireNonNull(value, "Name can not be null");
-        this.value = value;
+    public Name(String nameBook) {
+        Objects.requireNonNull(nameBook, "Name can not be null");
+        this.nameBook = nameBook;
     }
 }

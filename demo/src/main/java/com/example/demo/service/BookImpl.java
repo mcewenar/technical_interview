@@ -36,6 +36,7 @@ public class BookImpl implements BookServ {
 */
     @Override
     public void deleteBookById(Integer isbn) {
+        book.deleteById(isbn);
 
     }
 }

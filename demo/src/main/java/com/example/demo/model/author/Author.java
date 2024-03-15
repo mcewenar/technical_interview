@@ -3,8 +3,7 @@ package com.example.demo.model.author;
 import com.example.demo.model.book.Book;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
+
 
 @ToString
 @EqualsAndHashCode
@@ -12,27 +11,36 @@ import org.hibernate.type.SqlTypes;
 @Table(name="author")
 public class Author {
 
-    @ManyToOne
+    @ManyToOne(optional=false)
     @JoinColumn(name="book_id", nullable=true)
     private Book fk_book;
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private Integer id;
-    @JdbcTypeCode(SqlTypes.JSON)
-    private AuthorName name;
-    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name="author_id",insertable=false, updatable=false)
+    private Integer authorId;
+
+    @Embedded
+    @Column(name="author_name",insertable=false, updatable=false)
+    private AuthorName authorName;
+
+    @Embedded
+    @Column(name="cc",insertable=false, updatable=false)
     private AuthorCc cc;
-    @JdbcTypeCode(SqlTypes.JSON)
+
+    @Embedded
+    @Column(name="birth_day",insertable=false, updatable=false)
     private BirthDate birthday;
-    @JdbcTypeCode(SqlTypes.JSON)
+
+    @Embedded
+    @Column(name="year_old",insertable=false, updatable=false)
     private YearsOld yearOld;
 
 
     public Author() {}
-    public Author(Integer id, AuthorName name, AuthorCc cc, BirthDate birthday, YearsOld yearOld) {
-        this.id = id;
-        this.name = name;
+    public Author(Integer authorId, AuthorName authorName, AuthorCc cc, BirthDate birthday, YearsOld yearOld) {
+        this.authorId = authorId;
+        this.authorName = authorName;
         this.cc = cc;
         this.birthday = birthday;
         this.yearOld = yearOld;
@@ -46,20 +54,20 @@ public class Author {
         this.fk_book = fk_book;
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getAuthorId() {
+        return authorId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setAuthorId(Integer authorId) {
+        this.authorId = authorId;
     }
 
-    public AuthorName getName() {
-        return name;
+    public AuthorName getAuthorName() {
+        return authorName;
     }
 
-    public void setName(AuthorName name) {
-        this.name = name;
+    public void setAuthorName(AuthorName authorName) {
+        this.authorName = authorName;
     }
 
     public AuthorCc getCc() {

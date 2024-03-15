@@ -1,18 +1,19 @@
 package com.example.demo.model.book;
 
+import jakarta.persistence.Embeddable;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @Data
 @NoArgsConstructor
+@Embeddable
 public class PageNumber {
-    private Integer value;
+    private Integer pageNumberBook;
 
-    public PageNumber(Integer value) {
-        Objects.requireNonNull(value, "Page number can not be null");
-        this.value = value;
+    public PageNumber(Integer pageNumberBook) {
+        Objects.requireNonNull(pageNumberBook, "Page number can not be null");
+        this.pageNumberBook = pageNumberBook;
     }
 }

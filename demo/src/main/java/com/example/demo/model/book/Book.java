@@ -5,10 +5,10 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 @ToString
 @EqualsAndHashCode
@@ -19,42 +19,47 @@ public class Book {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    private Integer book_id;
+    private Integer bookId;
 
-
-    @JdbcTypeCode(SqlTypes.JSON)
+    @Embedded
+    @Column(name="isbn",insertable=false, updatable=false)
     private Isbn isbn;
 
-    @JdbcTypeCode(SqlTypes.JSON)
+    @Embedded
+    @Column(name="type",insertable=false, updatable=false)
     private Type type;
 
-    @OneToMany(mappedBy="fk_book")
-    private ArrayList<Author> authorArrayList;
+    @OneToMany
+    private List<Author> authors = new LinkedList<>();
 
-    @JdbcTypeCode(SqlTypes.JSON)
+
+    @Embedded
+    @Column(name="page_number",insertable=false, updatable=false)
     private PageNumber pageNumber;
 
-    @JdbcTypeCode(SqlTypes.JSON)
+    @Embedded
+    @Column(name="name",insertable=false, updatable=false)
     private Name name;
+
 
     private Book() {}
 
-    public Book(Integer book_id, Isbn isbn, Type type, ArrayList<Author> author, PageNumber pageNumber, Name name) {
-        this.book_id = book_id;
+    public Book(Integer bookId, Isbn isbn, Type type, List<Author> author, PageNumber pageNumber, Name name) {
+        this.bookId = bookId;
         this.isbn = isbn;
         this.type = type;
-        this.authorArrayList = author;
+        this.authors = author;
         this.pageNumber = pageNumber;
         this.name = name;
     }
 
 
-    public Integer getBook_id() {
-        return book_id;
+    public Integer getBookId() {
+        return bookId;
     }
 
-    public void setBook_id(Integer book_id) {
-        this.book_id = book_id;
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
     public Isbn getIsbn() {
@@ -73,12 +78,12 @@ public class Book {
         this.type = type;
     }
 
-    public ArrayList<Author> getAuthorArrayList() {
-        return authorArrayList;
+    public List<Author> getAuthors() {
+        return authors;
     }
 
-    public void setAuthorArrayList(ArrayList<Author> authorArrayList) {
-        this.authorArrayList = authorArrayList;
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public PageNumber getPageNumber() {
