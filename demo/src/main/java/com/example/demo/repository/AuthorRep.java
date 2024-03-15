@@ -1,19 +1,26 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.Author;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.model.author.Author;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
-public interface AuthorRep extends JpaRepository<Author,Integer> {
+public interface AuthorRep extends CrudRepository<Author, Integer> {
 
 
-    Author findByCc(String cc);
+    Optional<Author> findById(String id);
 
+    void deleteById(Integer id);
 
+    Author save(Author book);
 
-
+    @Modifying
+    @Query("UPDATE author b set b.cc = :cc WHERE b.cc = :cc")
+    Author updateAuthor(@Param(value = "cc") String cc);
 
 }

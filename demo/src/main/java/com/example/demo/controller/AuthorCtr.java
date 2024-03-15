@@ -1,12 +1,13 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Author;
+import com.example.demo.model.author.Author;
 import com.example.demo.service.AuthorImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.text.html.Option;
+import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/iastest")
@@ -18,7 +19,7 @@ public class AuthorCtr {
     }
 
     @GetMapping("/author/{id}")
-    public @ResponseBody Author getById(@PathVariable String id) {
+    public @ResponseBody Optional<Author> getById(@PathVariable String id) {
 
         return author.findByCC(id);
     }

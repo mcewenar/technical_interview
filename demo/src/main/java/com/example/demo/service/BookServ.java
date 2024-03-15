@@ -1,21 +1,17 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Author;
-import com.example.demo.model.Book;
+import com.example.demo.model.book.Book;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface BookServ {
-    Book saveDepartment(Book department);
+    Book saveBook(Book book);
 
-    // Read operation
-    List<Book> fetchDepartmentList();
-
-    Book findById(String isbn);
+    Optional<Book> findById(String isbn);
 
     // Update operation
-    Book updateDepartment(Author department, Integer departmentId);
+    Book updateBook(Book book);
 
     // Delete operation
-    void deleteDepartmentById(Integer departmentId);
+    void deleteBookById(String isbn);
 }

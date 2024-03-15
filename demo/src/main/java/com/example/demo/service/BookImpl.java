@@ -1,36 +1,41 @@
 package com.example.demo.service;
 
-import com.example.demo.model.Author;
-import com.example.demo.model.Book;
+import com.example.demo.model.book.Book;
+import com.example.demo.repository.AuthorRep;
+import com.example.demo.repository.BookRep;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookImpl implements BookServ {
 
-    @Override
-    public Book saveDepartment(Book department) {
-        return null;
+    private final AuthorRep author;
+    private final BookRep book;
+
+    public BookImpl(AuthorRep author, BookRep book) {
+        this.author = author;
+        this.book = book;
     }
 
     @Override
-    public List<Book> fetchDepartmentList() {
-        return null;
+    public Book saveBook(Book book) {
+        return this.book.save(book);
     }
 
     @Override
-    public Book findById(String isbn) {
-        return null;
+    public Optional<Book> findById(String isbn) {
+        return Optional.ofNullable(book.findById(isbn).orElseThrow(NullPointerException::new));
+
     }
 
     @Override
-    public Book updateDepartment(Author department, Integer departmentId) {
-        return null;
+    public Book updateBook(Book book) {
+        return this.book.updatePhone(book.getBook_id(),book.getType().toString());
     }
 
     @Override
-    public void deleteDepartmentById(Integer departmentId) {
+    public void deleteBookById(String isbn) {
 
     }
 }
