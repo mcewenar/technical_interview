@@ -5,14 +5,14 @@ import com.example.demo.model.author.Author;
 import java.util.Optional;
 
 public interface AuthorServ {
-    Author saveDepartment(Author author);
+    Author saveAuthor(Author author);
 
-    Optional<Author> findByCC(String cc);
+    Optional<Author> findByCC(Integer cc);
 
     //update
     //Author updateAuthorByCC(Author author);
 
 
     // Delete operation
-    void deleteDepartmentById(Integer cc);
+    void deleteAuthorById(Integer cc);
 }

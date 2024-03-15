@@ -6,7 +6,6 @@ import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
-import java.time.LocalDate;
 @ToString
 @EqualsAndHashCode
 @Entity
@@ -14,7 +13,7 @@ import java.time.LocalDate;
 public class Author {
 
     @ManyToOne
-    @JoinColumn(name="book_id", nullable=false)
+    @JoinColumn(name="book_id", nullable=true)
     private Book fk_book;
 
     @GeneratedValue(strategy = GenerationType.AUTO)

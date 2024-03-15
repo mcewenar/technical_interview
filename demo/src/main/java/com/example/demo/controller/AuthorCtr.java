@@ -19,24 +19,37 @@ public class AuthorCtr {
     }
 
     @GetMapping("/author/{id}")
-    public @ResponseBody Optional<Author> getById(@PathVariable String id) {
-
-        return author.findByCC(id);
-    }
-    @PostMapping
-    public ResponseEntity<String> postAuthor(){
-        return new ResponseEntity<String>("POST Response", HttpStatus.OK);
+    public ResponseEntity<Author> getAuthorById(@PathVariable Integer id) {
+        Optional<Author> author1 = author.findByCC(id);
+        return author1.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/author/")
+    public ResponseEntity<Author> postAuthor(@RequestBody Author book){
+        Author author1 =author.saveAuthor(book);
+        return ResponseEntity.status(HttpStatus.CREATED).body(author1);
 
-    @PutMapping("/author/{id}")
-    public @ResponseBody ResponseEntity<String> put(@PathVariable String id) {
-        return new ResponseEntity<String>("PUT Response", HttpStatus.OK);
     }
+
+/*
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
+        Optional<Book> existingBook = bookRepository.findById(id);
+        if (existingBook.isPresent()) {
+            book.setId(id);
+            Book updatedBook = bookRepository.save(book);
+            return ResponseEntity.ok(updatedBook);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }*/
 
     @DeleteMapping("/author/{id}")
-    public @ResponseBody ResponseEntity<String> delete(@PathVariable String id) {
-        return new ResponseEntity<String>("DELETE Response", HttpStatus.OK);
+    public @ResponseBody ResponseEntity<String> deleteBook(@PathVariable Integer id) {
+        author.deleteAuthorById(id);
+        return new ResponseEntity<>("DELETE Response", HttpStatus.OK);
     }
+
+
 }
 

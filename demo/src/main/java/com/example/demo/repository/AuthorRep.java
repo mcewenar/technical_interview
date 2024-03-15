@@ -13,14 +13,15 @@ import java.util.Optional;
 public interface AuthorRep extends CrudRepository<Author, Integer> {
 
 
-    Optional<Author> findById(String id);
+    Optional<Author> findById(Integer id);
 
     void deleteById(Integer id);
 
     Author save(Author book);
 
+    /*
     @Modifying
     @Query("UPDATE author b set b.cc = :cc WHERE b.cc = :cc")
     Author updateAuthor(@Param(value = "cc") String cc);
-
+*/
 }

@@ -5,7 +5,6 @@ import com.example.demo.repository.AuthorRep;
 import com.example.demo.repository.BookRep;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,12 +20,12 @@ public class AuthorImpl implements AuthorServ {
 
 
     @Override
-    public Author saveDepartment(Author author) {
+    public Author saveAuthor(Author author) {
         return this.author.save(author);
     }
 
     @Override
-    public Optional<Author> findByCC(String cc) {
+    public Optional<Author> findByCC(Integer cc) {
         return Optional.ofNullable(author.findById(cc).orElseThrow(NullPointerException::new));
     }
 
@@ -39,7 +38,7 @@ public class AuthorImpl implements AuthorServ {
 
 
     @Override
-    public void deleteDepartmentById(Integer cc) {
+    public void deleteAuthorById(Integer cc) {
 
     }
 }

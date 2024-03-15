@@ -7,11 +7,14 @@ import java.util.Optional;
 public interface BookServ {
     Book saveBook(Book book);
 
-    Optional<Book> findById(String isbn);
+    Optional<Book> findById(Integer isbn);
 
+    /*
     // Update operation
     Book updateBook(Book book);
 
+
+     */
     // Delete operation
-    void deleteBookById(String isbn);
+    void deleteBookById(Integer isbn);
 }

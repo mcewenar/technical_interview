@@ -24,18 +24,18 @@ public class BookImpl implements BookServ {
     }
 
     @Override
-    public Optional<Book> findById(String isbn) {
+    public Optional<Book> findById(Integer isbn) {
         return Optional.ofNullable(book.findById(isbn).orElseThrow(NullPointerException::new));
 
     }
-
+/*
     @Override
     public Book updateBook(Book book) {
         return this.book.updatePhone(book.getBook_id(),book.getType().toString());
     }
-
+*/
     @Override
-    public void deleteBookById(String isbn) {
+    public void deleteBookById(Integer isbn) {
 
     }
 }

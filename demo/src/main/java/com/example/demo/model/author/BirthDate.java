@@ -1,13 +1,17 @@
 package com.example.demo.model.author;
 
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
-
+@Data
+@NoArgsConstructor
 public class BirthDate {
-    private final Date value;
+    private LocalDate value;
 
-    public BirthDate(Date value) {
+    public BirthDate(LocalDate value) {
         Objects.requireNonNull(value, "BirthDate can not be null");
         this.value = value;
     }
