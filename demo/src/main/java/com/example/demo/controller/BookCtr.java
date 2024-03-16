@@ -31,18 +31,16 @@ public class BookCtr {
 
     }
 
-/*
-    @PutMapping("/{id}")
-    public ResponseEntity<Book> updateBook(@PathVariable Long id, @RequestBody Book book) {
-        Optional<Book> existingBook = bookRepository.findById(id);
-        if (existingBook.isPresent()) {
-            book.setId(id);
-            Book updatedBook = bookRepository.save(book);
-            return ResponseEntity.ok(updatedBook);
+    @PatchMapping("/book/{id}")
+    public ResponseEntity<Book> patchBook(@PathVariable Integer id, @RequestBody Book book) {
+        Optional<Book> bookImpById = bookImp.findById(id);
+        if (bookImpById.isPresent()) {
+            bookImpById.get().setPageNumber(book.getPageNumber());
+            return ResponseEntity.ok(bookImp.saveBook(bookImpById.get()));
         } else {
             return ResponseEntity.notFound().build();
         }
-    }*/
+    }
 
     @DeleteMapping("/book/{id}")
     public @ResponseBody ResponseEntity<String> deleteBook(@PathVariable Integer id) {

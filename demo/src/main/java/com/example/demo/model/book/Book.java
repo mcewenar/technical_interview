@@ -34,7 +34,7 @@ public class Book {
 
 
     @Embedded
-    @Column(name="page_number",insertable=false, updatable=false)
+    @Column(name="page_number",insertable=false, updatable=true)
     private PageNumber pageNumber;
 
     @Embedded

@@ -26,7 +26,7 @@ public class Author {
 
     @Embedded
     @Column(name="cc",insertable=false, updatable=false)
-    private AuthorCc cc;
+    private AuthorCc authorCc;
 
     @Embedded
     @Column(name="birth_day",insertable=false, updatable=false)
@@ -36,12 +36,11 @@ public class Author {
     @Column(name="year_old",insertable=false, updatable=false)
     private YearsOld yearOld;
 
-
     public Author() {}
-    public Author(Integer authorId, AuthorName authorName, AuthorCc cc, BirthDate birthday, YearsOld yearOld) {
+    public Author(Integer authorId, AuthorName authorName, AuthorCc authorCc, BirthDate birthday, YearsOld yearOld) {
         this.authorId = authorId;
         this.authorName = authorName;
-        this.cc = cc;
+        this.authorCc = authorCc;
         this.birthday = birthday;
         this.yearOld = yearOld;
     }
@@ -70,12 +69,12 @@ public class Author {
         this.authorName = authorName;
     }
 
-    public AuthorCc getCc() {
-        return cc;
+    public AuthorCc getAuthorCc() {
+        return authorCc;
     }
 
-    public void setCc(AuthorCc cc) {
-        this.cc = cc;
+    public void setAuthorCc(AuthorCc authorCc) {
+        this.authorCc = authorCc;
     }
 
     public BirthDate getBirthday() {

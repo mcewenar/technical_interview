@@ -9,12 +9,6 @@ public interface BookServ {
 
     Optional<Book> findById(Integer isbn);
 
-    /*
-    // Update operation
-    Book updateBook(Book book);
-
-
-     */
     // Delete operation
     void deleteBookById(Integer isbn);
 }

@@ -15,10 +15,4 @@ public interface BookRep extends CrudRepository<Book,Integer> {
 
     Book save(Book book);
 
-    /*
-    @Modifying
-    @Query("UPDATE book b set b.book_id = :book_id b.type b.pageNumber b.name WHERE b.book_id = :book_id")
-    Book updatePhone(@Param(value = "isbn") Integer isbn, @Param(value = "type") String type);
-
-     */
 }

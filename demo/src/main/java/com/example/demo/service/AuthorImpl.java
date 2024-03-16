@@ -5,6 +5,7 @@ import com.example.demo.repository.AuthorRep;
 import com.example.demo.repository.BookRep;
 import org.springframework.stereotype.Service;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -21,20 +22,18 @@ public class AuthorImpl implements AuthorServ {
 
     @Override
     public Author saveAuthor(Author author) {
+        Optional<Author> authorExist = findByCC(author.getAuthorId());
+        if(author.getAuthorCc().equals(authorExist.get().getAuthorCc())) {
+            throw new IllegalArgumentException(String.format("Id %s not found", author.getAuthorCc()));
+        }
         return this.author.save(author);
     }
 
     @Override
     public Optional<Author> findByCC(Integer cc) {
-        return Optional.ofNullable(author.findById(cc).orElseThrow(NullPointerException::new));
+        return Optional.ofNullable(author.findById(cc).orElseThrow(() ->
+                new NoSuchElementException(String.format("Id %s not found", cc))));
     }
-
-    /*@Override
-    public Author updateAuthorByCC(Author author) {
-        return this.author.updateAuthor(author.getCc().toString());
-    }
-
-     */
 
 
     @Override
