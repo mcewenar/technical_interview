@@ -1,6 +1,5 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.author.Author;
 import com.example.demo.model.book.Book;
 
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +17,7 @@ public interface BookRep extends CrudRepository<Book,Integer> {
 
     Book save(Book book);
 
-    @Query(value = "SELECT b FROM BOOK b WHERE b.ISBN_BOOK = :isbn",nativeQuery=true)
+    @Query(value = "SELECT * FROM book b WHERE b.ISBN_BOOK = :isbn",nativeQuery=true)
     Book findBookByIsbnParam(@Param("isbn") String isbn);
 
 

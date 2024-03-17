@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,7 +21,7 @@ public class Book {
     private Integer bookId;
 
     @Embedded
-    @Column(name="isbn",insertable=false, updatable=false)
+    @Column(name="isbn",insertable=false, updatable=false, unique = true)
     private Isbn isbn;
 
     @Embedded

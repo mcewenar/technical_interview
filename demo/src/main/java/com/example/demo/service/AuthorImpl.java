@@ -2,8 +2,6 @@ package com.example.demo.service;
 
 import com.example.demo.model.author.Author;
 
-import com.example.demo.model.author.AuthorCc;
-import com.example.demo.model.author.AuthorName;
 import com.example.demo.model.author.YearsOld;
 
 import com.example.demo.repository.AuthorRep;
@@ -12,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -29,25 +26,34 @@ public class AuthorImpl implements AuthorServ {
 
     @Override
     public Author saveAuthor(Author author) {
-        Author authorExist = authorRep.findAuthorByAuthorCcmParam(author.getAuthorCc().getAuthorCCM());
-        if(authorExist.getAuthorCc().equals(author.getAuthorCc())) {
-            throw new IllegalArgumentException(String.format("The cc %s is already created", author.getAuthorCc()));
+        Optional<Author> authorOptional = Optional.ofNullable(authorRep.findAuthorByAuthorCcmParam(author.getAuthorCc().getAuthorCCM()));
+        if (authorOptional.isPresent()) {
+            throw new IllegalArgumentException(String.format("The cc %s is already created", author.getAuthorCc().getAuthorCCM().toString()));
         }
         author.setYearOld(new YearsOld(calculateYearsOld(author.getBirthday())));
         return this.authorRep.save(author);
     }
 
     @Override
-    public Optional<Author> findByCC(Integer cc) {
-        return Optional.ofNullable(authorRep.findById(cc).orElseThrow(() ->
-                new NoSuchElementException(String.format("Id %s not found", cc))));
+    public Optional<Author> findById(Integer id) {
+        return authorRep.findById(id);
     }
 
 
     @Override
-    public void deleteAuthorById(Integer cc) {
-        authorRep.deleteById(cc);
+    public Optional<Author> deleteAuthorById(Integer cc) {
+       Optional<Author> authorOptional = findById(cc);
+       if(authorOptional.isPresent()) {
+           authorRep.deleteById(cc);
+           return authorOptional;
+       }
+       return Optional.empty();
+    }
 
+    @Override
+    public Optional<Author> patchAuthor(Integer id) {
+        Optional<Author> optionalAuthorFind = authorRep.findById(id);
+        return Optional.ofNullable(this.authorRep.save(optionalAuthorFind.get()));
     }
 
     @Override

@@ -9,5 +9,7 @@ public interface BookServ {
 
     Optional<Book> findById(Integer isbn);
 
-    void deleteBookById(Integer isbn);
+    Optional<Book> deleteBookById(Integer isbn);
+
+    Optional<Book> patchBook(Integer id);
 }

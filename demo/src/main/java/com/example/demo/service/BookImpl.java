@@ -5,7 +5,6 @@ import com.example.demo.repository.AuthorRep;
 import com.example.demo.repository.BookRep;
 import org.springframework.stereotype.Service;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -21,23 +20,31 @@ public class BookImpl implements BookServ {
 
     @Override
     public Book saveBook(Book book) {
-        Book bookExist = bookRep.findBookByIsbnParam(book.getIsbn().getIsbnBook());
-        if(bookExist.getIsbn().equals(book.getIsbn())) {
-            throw new IllegalArgumentException(String.format("The Isbn %s is already created", book.getIsbn()));
+        Optional<Book> bookExist = Optional.ofNullable(bookRep.findBookByIsbnParam(book.getIsbn().getIsbnBook()));
+        if(bookExist.isPresent()) {
+            throw new IllegalArgumentException(String.format("The Isbn %s is already created", book.getIsbn().getIsbnBook().toString()));
         }
         return this.bookRep.save(book);
     }
 
     @Override
     public Optional<Book> findById(Integer isbn) {
-        return Optional.ofNullable(bookRep.findById(isbn).orElseThrow(() ->
-                new NoSuchElementException(String.format("Id %s not found", isbn))));
-
+        return bookRep.findById(isbn);
     }
 
     @Override
-    public void deleteBookById(Integer isbn) {
-        bookRep.deleteById(isbn);
+    public Optional<Book> patchBook(Integer id) {
+        Optional<Book> optionalBookFind = bookRep.findById(id);
+        return Optional.ofNullable(bookRep.save(optionalBookFind.get()));
+    }
 
+    @Override
+    public Optional<Book> deleteBookById(Integer id) {
+        Optional<Book> optionalBook = findById(id);
+        if(optionalBook.isPresent()) {
+            bookRep.deleteById(id);
+            return optionalBook;
+        }
+        return Optional.empty();
     }
 }
