@@ -51,8 +51,9 @@ public class AuthorImpl implements AuthorServ {
     }
 
     @Override
-    public Optional<Author> patchAuthor(Integer id) {
+    public Optional<Author> patchAuthor(Integer id, Author author) {
         Optional<Author> optionalAuthorFind = authorRep.findById(id);
+        optionalAuthorFind.ifPresent(value -> value.setAuthorName(author.getAuthorName()));
         return Optional.ofNullable(this.authorRep.save(optionalAuthorFind.get()));
     }
 

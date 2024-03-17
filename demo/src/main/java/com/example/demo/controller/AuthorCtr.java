@@ -34,12 +34,9 @@ public class AuthorCtr {
 
     @PatchMapping("/author/{id}")
     public ResponseEntity<Book> patchBook(@PathVariable Integer id, @RequestBody Author author) {
-        Optional<Author> authorImpByCC = authorImp.patchAuthor(id);
-        if (authorImpByCC.isPresent()) {
-            authorImpByCC.get().setAuthorName(author.getAuthorName());
-            return ResponseEntity.ok(authorImp.patchAuthor(authorImpByCC.get().getAuthorId()).get().getFk_book());
-        }
-        return ResponseEntity.notFound().build();
+        Optional<Author> authorImpByCC = authorImp.findById(id);
+        return authorImpByCC.map(value -> ResponseEntity.ok(authorImp.patchAuthor(value.getAuthorId(), author).get().getFk_book()))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/author/{id}")

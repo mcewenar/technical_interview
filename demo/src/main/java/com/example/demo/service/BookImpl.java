@@ -33,8 +33,9 @@ public class BookImpl implements BookServ {
     }
 
     @Override
-    public Optional<Book> patchBook(Integer id) {
+    public Optional<Book> patchBook(Integer id, Book book) {
         Optional<Book> optionalBookFind = bookRep.findById(id);
+        optionalBookFind.ifPresent(value -> value.setPageNumber(book.getPageNumber()));
         return Optional.ofNullable(bookRep.save(optionalBookFind.get()));
     }
 

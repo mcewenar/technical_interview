@@ -33,12 +33,9 @@ public class BookCtr {
 
     @PatchMapping("/book/{id}")
     public ResponseEntity<Optional<Book>> patchBook(@PathVariable Integer id, @RequestBody Book book) {
-        Optional<Book> bookImpById = bookImp.patchBook(id);
-        if (bookImpById.isPresent()) {
-            bookImpById.get().setPageNumber(book.getPageNumber());
-            return ResponseEntity.ok(bookImp.patchBook(bookImpById.get().getBookId()));
-        }
-        return ResponseEntity.notFound().build();
+        Optional<Book> bookImpById = bookImp.findById(id);
+        return bookImpById.map(value -> ResponseEntity.ok(bookImp.patchBook(value.getBookId(), book)))
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/book/{id}")

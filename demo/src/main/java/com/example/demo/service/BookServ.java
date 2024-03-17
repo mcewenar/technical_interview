@@ -11,5 +11,5 @@ public interface BookServ {
 
     Optional<Book> deleteBookById(Integer isbn);
 
-    Optional<Book> patchBook(Integer id);
+    Optional<Book> patchBook(Integer id, Book book);
 }
