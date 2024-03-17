@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.author.Author;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 public interface AuthorServ {
@@ -9,10 +10,7 @@ public interface AuthorServ {
 
     Optional<Author> findByCC(Integer cc);
 
-    //update
-    //Author updateAuthorByCC(Author author);
-
-
-    // Delete operation
     void deleteAuthorById(Integer cc);
+
+    Integer calculateYearsOld(LocalDate dateAuthor);
 }

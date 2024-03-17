@@ -9,6 +9,5 @@ public interface BookServ {
 
     Optional<Book> findById(Integer isbn);
 
-    // Delete operation
     void deleteBookById(Integer isbn);
 }

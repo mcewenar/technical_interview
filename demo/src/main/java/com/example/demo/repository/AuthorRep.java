@@ -14,7 +14,7 @@ public interface AuthorRep extends CrudRepository<Author, Integer> {
 
     Optional<Author> findById(Integer id);
 
-    @Query(value ="SELECT a FROM AUTHOR a WHERE a.AUTHORCCM = :cc",nativeQuery=true)
+    @Query(value ="SELECT * FROM author a WHERE a.authorccm = :cc",nativeQuery=true)
     Author findAuthorByAuthorCcmParam(@Param("cc") Integer cc);
 
 

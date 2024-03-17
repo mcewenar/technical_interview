@@ -1,10 +1,17 @@
 package com.example.demo.service;
 
 import com.example.demo.model.author.Author;
+
+import com.example.demo.model.author.AuthorCc;
+import com.example.demo.model.author.AuthorName;
+import com.example.demo.model.author.YearsOld;
+
 import com.example.demo.repository.AuthorRep;
 import com.example.demo.repository.BookRep;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -26,6 +33,7 @@ public class AuthorImpl implements AuthorServ {
         if(authorExist.getAuthorCc().equals(author.getAuthorCc())) {
             throw new IllegalArgumentException(String.format("The cc %s is already created", author.getAuthorCc()));
         }
+        author.setYearOld(new YearsOld(calculateYearsOld(author.getBirthday())));
         return this.authorRep.save(author);
     }
 
@@ -41,4 +49,11 @@ public class AuthorImpl implements AuthorServ {
         authorRep.deleteById(cc);
 
     }
+
+    @Override
+    public Integer calculateYearsOld(LocalDate dateAuthor) {
+        return Period.between(dateAuthor, LocalDate.now()).getYears();
+    }
+
+
 }

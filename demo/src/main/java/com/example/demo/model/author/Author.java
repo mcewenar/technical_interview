@@ -4,6 +4,8 @@ import com.example.demo.model.book.Book;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 
 @ToString
 @EqualsAndHashCode
@@ -28,16 +30,19 @@ public class Author {
     @Column(name="cc",insertable=false, updatable=false)
     private AuthorCc authorCc;
 
-    @Embedded
+    //@Embedded
     @Column(name="birth_day",insertable=false, updatable=false)
-    private BirthDate birthday;
+    //@JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
+    //@JsonSerialize( using = LocalDateSerializer.class )
+    //@JsonDeserialize( using = LocalDateDeserializer.class )
+    private LocalDate birthday;
 
     @Embedded
     @Column(name="year_old",insertable=false, updatable=false)
     private YearsOld yearOld;
 
     public Author() {}
-    public Author(Integer authorId, AuthorName authorName, AuthorCc authorCc, BirthDate birthday, YearsOld yearOld) {
+    public Author(Integer authorId, AuthorName authorName, AuthorCc authorCc, LocalDate birthday, YearsOld yearOld) {
         this.authorId = authorId;
         this.authorName = authorName;
         this.authorCc = authorCc;
@@ -77,11 +82,11 @@ public class Author {
         this.authorCc = authorCc;
     }
 
-    public BirthDate getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(BirthDate birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 

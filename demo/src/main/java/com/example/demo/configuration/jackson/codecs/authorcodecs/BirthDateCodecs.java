@@ -1,6 +1,5 @@
 package com.example.demo.configuration.jackson.codecs.authorcodecs;
 
-import com.example.demo.model.author.BirthDate;
 import com.fasterxml.jackson.core.JacksonException;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
@@ -12,7 +11,7 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class BirthDateCodecs {
+/*public class BirthDateCodecs {
     public static class Serializer extends JsonSerializer<BirthDate> {
         @Override
         public void serialize(BirthDate value, JsonGenerator gen, SerializerProvider serializers) throws IOException {
@@ -27,3 +26,5 @@ public class BirthDateCodecs {
         }
     }
 }
+
+ */
