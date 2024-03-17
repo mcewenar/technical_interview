@@ -21,9 +21,9 @@ public class BookImpl implements BookServ {
 
     @Override
     public Book saveBook(Book book) {
-        Optional<Book> optionalBook = bookRep.findById(book.getBookId());
-        if(book.getIsbn().equals(optionalBook.get().getIsbn())) {
-            throw new IllegalArgumentException(String.format("Isbn %s not found", book.getIsbn()));
+        Book bookExist = bookRep.findBookByIsbnParam(book.getIsbn().getIsbnBook());
+        if(bookExist.getIsbn().equals(book.getIsbn())) {
+            throw new IllegalArgumentException(String.format("The Isbn %s is already created", book.getIsbn()));
         }
         return this.bookRep.save(book);
     }

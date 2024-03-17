@@ -11,34 +11,34 @@ import java.util.Optional;
 @Service
 public class AuthorImpl implements AuthorServ {
 
-    private final AuthorRep author;
-    private final BookRep book;
+    private final AuthorRep authorRep;
+    private final BookRep bookRep;
 
-    public AuthorImpl(AuthorRep author, BookRep book) {
-        this.author = author;
-        this.book = book;
+    public AuthorImpl(AuthorRep authorRep, BookRep bookRep) {
+        this.authorRep = authorRep;
+        this.bookRep = bookRep;
     }
 
 
     @Override
     public Author saveAuthor(Author author) {
-        Optional<Author> authorExist = findByCC(author.getAuthorId());
-        if(author.getAuthorCc().equals(authorExist.get().getAuthorCc())) {
-            throw new IllegalArgumentException(String.format("Id %s not found", author.getAuthorCc()));
+        Author authorExist = authorRep.findAuthorByAuthorCcmParam(author.getAuthorCc().getAuthorCCM());
+        if(authorExist.getAuthorCc().equals(author.getAuthorCc())) {
+            throw new IllegalArgumentException(String.format("The cc %s is already created", author.getAuthorCc()));
         }
-        return this.author.save(author);
+        return this.authorRep.save(author);
     }
 
     @Override
     public Optional<Author> findByCC(Integer cc) {
-        return Optional.ofNullable(author.findById(cc).orElseThrow(() ->
+        return Optional.ofNullable(authorRep.findById(cc).orElseThrow(() ->
                 new NoSuchElementException(String.format("Id %s not found", cc))));
     }
 
 
     @Override
     public void deleteAuthorById(Integer cc) {
-        author.deleteById(cc);
+        authorRep.deleteById(cc);
 
     }
 }
