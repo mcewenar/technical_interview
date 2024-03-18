@@ -15,4 +15,6 @@ public interface AuthorServ {
     Integer calculateYearsOld(LocalDate dateAuthor);
 
     Optional<Author> patchAuthor(Integer id, Author author);
+
+    Iterable<Author> findAllAuthorS();
 }

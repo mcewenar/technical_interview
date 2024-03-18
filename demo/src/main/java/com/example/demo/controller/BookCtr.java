@@ -45,7 +45,13 @@ public class BookCtr {
             return new ResponseEntity<>("DELETE Response", HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
+    }
 
+    @GetMapping("/book/")
+    public ResponseEntity<Iterable<Book>> getAllBook() {
+        Optional<Iterable<Book>> bookIterable = Optional.ofNullable(bookImp.findAllBookS());
+        return bookIterable.map(books -> new ResponseEntity<>(books, HttpStatus.OK))
+                        .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 }

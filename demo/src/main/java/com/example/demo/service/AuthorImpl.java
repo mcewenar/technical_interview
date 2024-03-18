@@ -58,9 +58,16 @@ public class AuthorImpl implements AuthorServ {
     }
 
     @Override
+    public Iterable<Author> findAllAuthorS() {
+        return authorRep.findAllAuthor();
+    }
+
+    @Override
     public Integer calculateYearsOld(LocalDate dateAuthor) {
         return Period.between(dateAuthor, LocalDate.now()).getYears();
     }
+
+
 
 
 }

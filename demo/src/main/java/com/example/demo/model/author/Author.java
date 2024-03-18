@@ -18,9 +18,10 @@ import java.time.LocalDate;
 @Table(name="author")
 public class Author {
 
+    @Embedded
     @ManyToOne(optional=true)
-    @JoinColumn(name="book_id", nullable=true)
-    private Book fk_book;
+    @JoinColumn(name="name_book", nullable=false)
+    private Book nameBook;
 
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
@@ -35,8 +36,8 @@ public class Author {
     @Column(name="cc",insertable=false, updatable=false, unique = true)
     private AuthorCc authorCc;
 
-    @JsonSerialize( using = LocalDateSerializer.class )
-    @JsonDeserialize( using = LocalDateDeserializer.class )
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd", shape = JsonFormat.Shape.STRING)
     @Column(name="birth_day",insertable=true, updatable=true)
     //@Embedded
@@ -56,12 +57,12 @@ public class Author {
         this.yearOld = yearOld;
     }
 
-    public Book getFk_book() {
-        return fk_book;
+    public Book getNameBook() {
+        return nameBook;
     }
 
-    public void setFk_book(Book fk_book) {
-        this.fk_book = fk_book;
+    public void setNameBook(Book nameBook) {
+        this.nameBook = nameBook;
     }
 
     public Integer getAuthorId() {

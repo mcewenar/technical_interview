@@ -35,7 +35,7 @@ public class AuthorCtr {
     @PatchMapping("/author/{id}")
     public ResponseEntity<Book> patchBook(@PathVariable Integer id, @RequestBody Author author) {
         Optional<Author> authorImpByCC = authorImp.findById(id);
-        return authorImpByCC.map(value -> ResponseEntity.ok(authorImp.patchAuthor(value.getAuthorId(), author).get().getFk_book()))
+        return authorImpByCC.map(value -> ResponseEntity.ok(authorImp.patchAuthor(value.getAuthorId(), author).get().getNameBook()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -46,6 +46,13 @@ public class AuthorCtr {
             return new ResponseEntity<>("DELETE Response", HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/author/")
+    public ResponseEntity<Iterable<Author>> getAllAuthor() {
+        Optional<Iterable<Author>> authorIterable = Optional.ofNullable(authorImp.findAllAuthorS());
+        return authorIterable.map(authors -> new ResponseEntity<>(authors, HttpStatus.OK)).
+                orElseGet(() -> ResponseEntity.notFound().build());
     }
 
 

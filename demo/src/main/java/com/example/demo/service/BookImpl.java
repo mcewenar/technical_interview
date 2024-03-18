@@ -40,6 +40,11 @@ public class BookImpl implements BookServ {
     }
 
     @Override
+    public Iterable<Book> findAllBookS() {
+        return bookRep.findAllBook();
+    }
+
+    @Override
     public Optional<Book> deleteBookById(Integer id) {
         Optional<Book> optionalBook = findById(id);
         if(optionalBook.isPresent()) {
