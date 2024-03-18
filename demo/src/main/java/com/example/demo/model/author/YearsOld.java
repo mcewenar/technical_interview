@@ -10,10 +10,10 @@ import java.util.Objects;
 @NoArgsConstructor
 @Embeddable
 public class YearsOld {
-    private Integer yeardOldAuthor;
+    private Integer yearOldAuthor;
 
-    public YearsOld(Integer yeardOldAuthor) {
-        Objects.requireNonNull(yeardOldAuthor, "YearsOld can not be null");
-        this.yeardOldAuthor = yeardOldAuthor;
+    public YearsOld(Integer yearOldAuthor) {
+        Objects.requireNonNull(yearOldAuthor, "YearsOld can not be null");
+        this.yearOldAuthor = yearOldAuthor;
     }
 }

@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.author.Author;
-import com.example.demo.model.book.Book;
 import com.example.demo.service.AuthorImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,9 +32,9 @@ public class AuthorCtr {
     }
 
     @PatchMapping("/author/{id}")
-    public ResponseEntity<Book> patchBook(@PathVariable Integer id, @RequestBody Author author) {
+    public ResponseEntity<Author> patchBook(@PathVariable Integer id, @RequestBody Author author) {
         Optional<Author> authorImpByCC = authorImp.findById(id);
-        return authorImpByCC.map(value -> ResponseEntity.ok(authorImp.patchAuthor(value.getAuthorId(), author).get().getNameBook()))
+        return authorImpByCC.map(value -> ResponseEntity.ok(authorImp.patchAuthor(value.getAuthorId(), author).get()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 

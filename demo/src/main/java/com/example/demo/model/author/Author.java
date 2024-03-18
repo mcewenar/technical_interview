@@ -1,6 +1,5 @@
 package com.example.demo.model.author;
 
-import com.example.demo.model.book.Book;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -18,13 +17,8 @@ import java.time.LocalDate;
 @Table(name="author")
 public class Author {
 
-    @Embedded
-    @ManyToOne(optional=true)
-    @JoinColumn(name="name_book", nullable=false)
-    private Book nameBook;
-
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="author_id",insertable=false, updatable=false)
     private Integer authorId;
 
@@ -55,14 +49,6 @@ public class Author {
         this.authorCc = authorCc;
         this.birthday = birthday;
         this.yearOld = yearOld;
-    }
-
-    public Book getNameBook() {
-        return nameBook;
-    }
-
-    public void setNameBook(Book nameBook) {
-        this.nameBook = nameBook;
     }
 
     public Integer getAuthorId() {

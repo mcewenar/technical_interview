@@ -6,9 +6,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
-import java.util.LinkedList;
-import java.util.List;
-
 @ToString
 @EqualsAndHashCode
 @Builder
@@ -16,8 +13,8 @@ import java.util.List;
 @Table(name="book")
 public class Book {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer bookId;
 
     @Embedded
@@ -28,8 +25,9 @@ public class Book {
     @Column(name="type",insertable=false, updatable=false)
     private Type type;
 
-    @OneToMany
-    private List<Author> authors = new LinkedList<>();
+    @Embedded
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Author author;
 
 
     @Embedded
@@ -43,11 +41,11 @@ public class Book {
 
     private Book() {}
 
-    public Book(Integer bookId, Isbn isbn, Type type, List<Author> author, PageNumber pageNumber, Name name) {
+    public Book(Integer bookId, Isbn isbn, Type type, Author author, PageNumber pageNumber, Name name) {
         this.bookId = bookId;
         this.isbn = isbn;
         this.type = type;
-        this.authors = author;
+        this.author = author;
         this.pageNumber = pageNumber;
         this.name = name;
     }
@@ -77,13 +75,6 @@ public class Book {
         this.type = type;
     }
 
-    public List<Author> getAuthors() {
-        return authors;
-    }
-
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
-    }
 
     public PageNumber getPageNumber() {
         return pageNumber;
@@ -99,5 +90,13 @@ public class Book {
 
     public void setName(Name name) {
         this.name = name;
+    }
+
+    public Author getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(Author author) {
+        this.author = author;
     }
 }

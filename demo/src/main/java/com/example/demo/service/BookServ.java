@@ -14,4 +14,6 @@ public interface BookServ {
     Optional<Book> patchBook(Integer id, Book book);
 
     Iterable<Book> findAllBookS();
+
+    Book insertForeignKey();
 }

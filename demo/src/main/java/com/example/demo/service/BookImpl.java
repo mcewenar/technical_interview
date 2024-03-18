@@ -45,6 +45,11 @@ public class BookImpl implements BookServ {
     }
 
     @Override
+    public Book insertForeignKey() {
+        return null;
+    }
+
+    @Override
     public Optional<Book> deleteBookById(Integer id) {
         Optional<Book> optionalBook = findById(id);
         if(optionalBook.isPresent()) {

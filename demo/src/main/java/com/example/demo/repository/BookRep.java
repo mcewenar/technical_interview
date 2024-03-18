@@ -20,7 +20,9 @@ public interface BookRep extends CrudRepository<Book,Integer> {
     @Query(value = "SELECT * FROM book b WHERE b.ISBN_BOOK = :isbn",nativeQuery=true)
     Book findBookByIsbnParam(@Param("isbn") String isbn);
 
-    @Query(value ="SELECT * FROM book a ORDER BY a.book_id ASC LIMIT 10 OFFSET 0;",nativeQuery=true)
+    @Query(value = "SELECT book_id ,author_name_author, name_book, isbn_book, year_old_author FROM book b " +
+            "INNER JOIN author a ON b.author_author_id = a.author_id ORDER BY b.name_book ASC LIMIT 10 OFFSET 0;",nativeQuery = true)
     Iterable<Book> findAllBook();
+
 
 }
