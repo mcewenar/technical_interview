@@ -5,7 +5,7 @@ import com.example.demo.model.book.Book;
 import java.util.Optional;
 
 public interface BookServ {
-    Book saveBook(Book book);
+    Optional<Book> saveBook(Book book, Integer id);
 
     Optional<Book> findById(Integer isbn);
 
@@ -13,7 +13,5 @@ public interface BookServ {
 
     Optional<Book> patchBook(Integer id, Book book);
 
-    Iterable<Book> findAllBookS();
-
-    Book insertForeignKey();
+    Optional<Iterable<Book>> findAllBookSWithAuthors();
 }

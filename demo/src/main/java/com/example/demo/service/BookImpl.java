@@ -1,13 +1,17 @@
 package com.example.demo.service;
 
+import com.example.demo.model.author.Author;
+import com.example.demo.model.book.AuthorIdFk;
 import com.example.demo.model.book.Book;
 import com.example.demo.repository.AuthorRep;
 import com.example.demo.repository.BookRep;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class BookImpl implements BookServ {
 
     private final AuthorRep authorRep;
@@ -19,12 +23,19 @@ public class BookImpl implements BookServ {
     }
 
     @Override
-    public Book saveBook(Book book) {
+    public Optional<Book> saveBook(Book book, Integer idAuthor) {
+        Optional<Author> optionalAuthor = authorRep.findById(idAuthor);
         Optional<Book> bookExist = Optional.ofNullable(bookRep.findBookByIsbnParam(book.getIsbn().getIsbnBook()));
-        if(bookExist.isPresent()) {
-            throw new IllegalArgumentException(String.format("The Isbn %s is already created", book.getIsbn().getIsbnBook().toString()));
+        if(optionalAuthor.isEmpty()) {
+            log.error(String.format("The author with ID %s not found", idAuthor));
+            return Optional.empty();
         }
-        return this.bookRep.save(book);
+        if(bookExist.isPresent()) {
+            log.error(String.format("The cc ID %s is already created", book.getIsbn().getIsbnBook()));
+            return Optional.empty();
+        }
+        book.setAuthorIdFk(new AuthorIdFk(idAuthor));
+        return Optional.ofNullable(this.bookRep.save(book));
     }
 
     @Override
@@ -40,13 +51,13 @@ public class BookImpl implements BookServ {
     }
 
     @Override
-    public Iterable<Book> findAllBookS() {
-        return bookRep.findAllBook();
-    }
-
-    @Override
-    public Book insertForeignKey() {
-        return null;
+    public Optional<Iterable<Book>> findAllBookSWithAuthors() {
+        Optional<Iterable<Book>> bookExist = bookRep.findAllBookWithAuthor();
+        if(bookExist.isEmpty()) {
+            log.error("NOT FOUND BOOKS WITH AUTHORS");
+            return Optional.empty();
+        }
+        return bookRep.findAllBookWithAuthor();
     }
 
     @Override

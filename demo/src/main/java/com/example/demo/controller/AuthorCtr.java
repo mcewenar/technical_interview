@@ -25,16 +25,19 @@ public class AuthorCtr {
     }
 
     @PostMapping("/author/")
-    public ResponseEntity<Author> postAuthor(@RequestBody Author book){
-        Author author1 = authorImp.saveAuthor(book);
-        return ResponseEntity.status(HttpStatus.CREATED).body(author1);
+    public ResponseEntity<String> postAuthor(@RequestBody Author author){
+        Optional<Author> optionalAuthor = authorImp.saveAuthor(author);
+        if(optionalAuthor.isPresent()) {
+            return new ResponseEntity<>("OBJECT CREATED!", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("OBJECT NOT CREATED!", HttpStatus.CONFLICT);
 
     }
 
     @PatchMapping("/author/{id}")
     public ResponseEntity<Author> patchBook(@PathVariable Integer id, @RequestBody Author author) {
         Optional<Author> authorImpByCC = authorImp.findById(id);
-        return authorImpByCC.map(value -> ResponseEntity.ok(authorImp.patchAuthor(value.getAuthorId(), author).get()))
+        return authorImpByCC.map(value -> ResponseEntity.ok(authorImp.patchAuthor(value.getId(), author).get()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 

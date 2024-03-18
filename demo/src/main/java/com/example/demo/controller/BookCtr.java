@@ -25,10 +25,12 @@ public class BookCtr {
     }
 
     @PostMapping("/book/")
-    public ResponseEntity<Book> postBook(@RequestBody Book book){
-        Book book1 = bookImp.saveBook(book);
-        return ResponseEntity.status(HttpStatus.CREATED).body(book1);
-
+    public ResponseEntity<String> postBook(@RequestBody Book book){
+        Optional<Book> optionalBook = bookImp.saveBook(book, book.getAuthorIdFk().getAuthorId());
+        if(optionalBook.isPresent()) {
+            return new ResponseEntity<>("OBJECT CREATED!", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("OBJECT NOT CREATED!", HttpStatus.CONFLICT);
     }
 
     @PatchMapping("/book/{id}")
@@ -44,14 +46,16 @@ public class BookCtr {
         if(optionalBook.isPresent()) {
             return new ResponseEntity<>("DELETE Response", HttpStatus.OK);
         }
-        return ResponseEntity.notFound().build();
+        return new ResponseEntity<>("Delete operation could not be performed successfully", HttpStatus.OK);
     }
 
     @GetMapping("/book/")
     public ResponseEntity<Iterable<Book>> getAllBook() {
-        Optional<Iterable<Book>> bookIterable = Optional.ofNullable(bookImp.findAllBookS());
-        return bookIterable.map(books -> new ResponseEntity<>(books, HttpStatus.OK))
-                        .orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<Iterable<Book>> bookIterable = bookImp.findAllBookSWithAuthors();
+        return bookIterable.map(books -> new ResponseEntity<>(books, HttpStatus.OK)).
+                orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+
 
 }

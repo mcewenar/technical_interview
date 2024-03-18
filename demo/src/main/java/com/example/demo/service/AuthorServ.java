@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface AuthorServ {
-    Author saveAuthor(Author author);
+    Optional<Author> saveAuthor(Author author);
 
     Optional<Author> findById(Integer cc);
 

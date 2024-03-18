@@ -1,6 +1,5 @@
 package com.example.demo.model.book;
 
-import com.example.demo.model.author.Author;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -25,10 +24,10 @@ public class Book {
     @Column(name="type",insertable=false, updatable=false)
     private Type type;
 
-    @Embedded
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Author author;
 
+    @Embedded
+    @JoinColumn(name = "id",insertable=true, updatable=true)
+    private AuthorIdFk authorIdFk;
 
     @Embedded
     @Column(name="page_number",insertable=false, updatable=true)
@@ -41,11 +40,11 @@ public class Book {
 
     private Book() {}
 
-    public Book(Integer bookId, Isbn isbn, Type type, Author author, PageNumber pageNumber, Name name) {
+    public Book(Integer bookId, Isbn isbn, Type type, AuthorIdFk authorIdFk, PageNumber pageNumber, Name name) {
         this.bookId = bookId;
         this.isbn = isbn;
         this.type = type;
-        this.author = author;
+        this.authorIdFk = authorIdFk;
         this.pageNumber = pageNumber;
         this.name = name;
     }
@@ -92,11 +91,11 @@ public class Book {
         this.name = name;
     }
 
-    public Author getAuthor() {
-        return author;
+    public AuthorIdFk getAuthorIdFk() {
+        return authorIdFk;
     }
 
-    public void setAuthor(Author author) {
-        this.author = author;
+    public void setAuthorIdFk(AuthorIdFk authorIdFk) {
+        this.authorIdFk = authorIdFk;
     }
 }

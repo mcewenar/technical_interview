@@ -19,8 +19,9 @@ public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="author_id",insertable=false, updatable=false)
-    private Integer authorId;
+    @Column(name="id",insertable=false, updatable=false)
+    //@OneToMany(fetch = FetchType.LAZY, mappedBy = "authorId")
+    private Integer id;
 
     @Embedded
     @Column(name="author_name",insertable=false, updatable=false)
@@ -43,20 +44,20 @@ public class Author {
     private YearsOld yearOld;
 
     public Author() {}
-    public Author(Integer authorId, AuthorName authorName, AuthorCc authorCc, LocalDate birthday, YearsOld yearOld) {
-        this.authorId = authorId;
+    public Author(Integer id, AuthorName authorName, AuthorCc authorCc, LocalDate birthday, YearsOld yearOld) {
+        this.id = id;
         this.authorName = authorName;
         this.authorCc = authorCc;
         this.birthday = birthday;
         this.yearOld = yearOld;
     }
 
-    public Integer getAuthorId() {
-        return authorId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setAuthorId(Integer authorId) {
-        this.authorId = authorId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public AuthorName getAuthorName() {

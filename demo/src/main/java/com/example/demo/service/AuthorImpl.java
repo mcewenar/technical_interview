@@ -6,6 +6,7 @@ import com.example.demo.model.author.YearsOld;
 
 import com.example.demo.repository.AuthorRep;
 import com.example.demo.repository.BookRep;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ import java.time.Period;
 import java.util.Optional;
 
 @Service
+@Slf4j
 public class AuthorImpl implements AuthorServ {
 
     private final AuthorRep authorRep;
@@ -25,13 +27,14 @@ public class AuthorImpl implements AuthorServ {
 
 
     @Override
-    public Author saveAuthor(Author author) {
+    public Optional<Author> saveAuthor(Author author) {
         Optional<Author> authorOptional = Optional.ofNullable(authorRep.findAuthorByAuthorCcmParam(author.getAuthorCc().getAuthorCCM()));
         if (authorOptional.isPresent()) {
-            throw new IllegalArgumentException(String.format("The cc %s is already created", author.getAuthorCc().getAuthorCCM().toString()));
+            log.error(String.format("The cc ID %s is already created", author.getAuthorCc().getAuthorCCM().toString()));
+            return Optional.empty();
         }
         author.setYearOld(new YearsOld(calculateYearsOld(author.getBirthday())));
-        return this.authorRep.save(author);
+        return Optional.ofNullable(this.authorRep.save(author));
     }
 
     @Override
