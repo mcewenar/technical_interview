@@ -10,7 +10,6 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-
 @ToString
 @EqualsAndHashCode
 @Entity

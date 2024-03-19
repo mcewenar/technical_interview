@@ -25,7 +25,6 @@ public class AuthorImpl implements AuthorServ {
         this.bookRep = bookRep;
     }
 
-
     @Override
     public Optional<Author> saveAuthor(Author author) {
         Optional<Author> authorOptional = Optional.ofNullable(authorRep.findAuthorByAuthorCcmParam(author.getAuthorCc().getAuthorCCM()));
@@ -41,7 +40,6 @@ public class AuthorImpl implements AuthorServ {
     public Optional<Author> findById(Integer id) {
         return authorRep.findById(id);
     }
-
 
     @Override
     public Optional<Author> deleteAuthorById(Integer cc) {

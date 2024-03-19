@@ -11,7 +11,6 @@ import java.util.Optional;
 @Repository
 public interface AuthorRep extends CrudRepository<Author, Integer> {
 
-
     Optional<Author> findById(Integer id);
 
     void deleteById(Integer id);
@@ -23,5 +22,4 @@ public interface AuthorRep extends CrudRepository<Author, Integer> {
 
     @Query(value ="SELECT * FROM author a ORDER BY a.id ASC LIMIT 10 OFFSET 0;",nativeQuery=true)
     Iterable<Author> findAllAuthor();
-
 }

@@ -24,7 +24,6 @@ public class Book {
     @Column(name="type",insertable=false, updatable=false)
     private Type type;
 
-
     @Embedded
     @JoinColumn(name = "id",insertable=true, updatable=true)
     private AuthorIdFk authorIdFk;
@@ -37,7 +36,6 @@ public class Book {
     @Column(name="name",insertable=false, updatable=false)
     private Name name;
 
-
     private Book() {}
 
     public Book(Integer bookId, Isbn isbn, Type type, AuthorIdFk authorIdFk, PageNumber pageNumber, Name name) {
@@ -48,7 +46,6 @@ public class Book {
         this.pageNumber = pageNumber;
         this.name = name;
     }
-
 
     public Integer getBookId() {
         return bookId;

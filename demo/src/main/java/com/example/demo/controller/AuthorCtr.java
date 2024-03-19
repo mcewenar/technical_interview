@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("/iastest")
 public class AuthorCtr {
@@ -56,7 +55,5 @@ public class AuthorCtr {
         return authorIterable.map(authors -> new ResponseEntity<>(authors, HttpStatus.OK)).
                 orElseGet(() -> ResponseEntity.notFound().build());
     }
-
-
 }
 

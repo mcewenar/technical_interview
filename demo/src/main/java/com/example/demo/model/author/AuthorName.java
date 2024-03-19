@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
-
 @Data
 @NoArgsConstructor
 @Embeddable
