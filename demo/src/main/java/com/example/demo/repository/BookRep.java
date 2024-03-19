@@ -21,7 +21,7 @@ public interface BookRep extends CrudRepository<Book,Integer> {
     Book findBookByIsbnParam(@Param("isbn") String isbn);
 
     @Query(value = "SELECT book_id ,author_name_author, name_book, isbn_book, year_old_author FROM author a " +
-            "INNER JOIN book b ON a.id = b.AUTHOR_ID ORDER BY b.name_book ASC LIMIT 10 OFFSET 0",nativeQuery = true)
+            "INNER JOIN book b ON a.id = b.author_id ORDER BY b.name_book ASC LIMIT 10 OFFSET 0",nativeQuery = true)
     Optional<Iterable<Book>> findAllBookWithAuthor();
 
 
