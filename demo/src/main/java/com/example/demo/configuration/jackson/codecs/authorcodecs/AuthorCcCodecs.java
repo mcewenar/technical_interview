@@ -22,7 +22,7 @@ public class AuthorCcCodecs {
     public static class Deserializer extends JsonDeserializer<AuthorCc> {
         @Override
         public AuthorCc deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JacksonException {
-            return new AuthorCc(p.getIntValue());
+            return new AuthorCc(p.getLongValue());
         }
     }
 }

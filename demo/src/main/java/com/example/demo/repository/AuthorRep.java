@@ -18,7 +18,7 @@ public interface AuthorRep extends CrudRepository<Author, Integer> {
     Author save(Author book);
 
     @Query(value ="SELECT * FROM author a WHERE a.authorccm = :cc",nativeQuery=true)
-    Author findAuthorByAuthorCcmParam(@Param("cc") Integer cc);
+    Author findAuthorByAuthorCcmParam(@Param("cc") Long cc);
 
     @Query(value ="SELECT * FROM author a ORDER BY a.id ASC LIMIT 10 OFFSET 0;",nativeQuery=true)
     Iterable<Author> findAllAuthor();

@@ -11,9 +11,9 @@ import java.util.Objects;
 @ToString
 @Embeddable
 public class AuthorCc {
-    private Integer authorCCM;
+    private Long authorCCM;
 
-    public AuthorCc(Integer authorCCM) {
+    public AuthorCc(Long authorCCM) {
         Objects.requireNonNull(authorCCM, "CC can not be null");
         this.authorCCM = authorCCM;
     }

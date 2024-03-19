@@ -25,7 +25,7 @@ public class Book {
     private Type type;
 
     @Embedded
-    @JoinColumn(name = "id",insertable=true, updatable=true)
+    @JoinColumn(name = "author_id",referencedColumnName = "author_id",insertable=true, updatable=true)
     private AuthorIdFk authorIdFk;
 
     @Embedded

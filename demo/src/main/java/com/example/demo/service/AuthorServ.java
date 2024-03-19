@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface AuthorServ {
     Optional<Author> saveAuthor(Author author);
 
-    Optional<Author> findById(Integer cc);
+    Optional<Author> findById(Integer id);
 
     Optional<Author> deleteAuthorById(Integer cc);
 
