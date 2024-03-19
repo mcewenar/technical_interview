@@ -28,9 +28,9 @@ public class BookCtr {
     public ResponseEntity<String> postBook(@RequestBody Book book){
         Optional<Book> optionalBook = bookImp.saveBook(book, book.getAuthorIdFk().getAuthorId());
         if(optionalBook.isPresent()) {
-            return new ResponseEntity<>("OBJECT CREATED!", HttpStatus.OK);
+            return new ResponseEntity<>(String.format("OBJECT WITH CC %s was created!", book.getIsbn().getIsbnBook()), HttpStatus.OK);
         }
-        return new ResponseEntity<>("OBJECT NOT CREATED!", HttpStatus.CONFLICT);
+        return new ResponseEntity<>(String.format("OBJECT WITH CC %s wasn't created!", book.getIsbn().getIsbnBook()), HttpStatus.CONFLICT);
     }
 
     @PatchMapping("/book/{id}")
@@ -44,9 +44,10 @@ public class BookCtr {
     public @ResponseBody ResponseEntity<String> deleteBook(@PathVariable Integer id) {
         Optional<Book> optionalBook = bookImp.deleteBookById(id);
         if(optionalBook.isPresent()) {
-            return new ResponseEntity<>("DELETE Response", HttpStatus.OK);
+            return new ResponseEntity<>(String.format("The ID %s was deleted successfully",id.toString()), HttpStatus.OK);
         }
-        return new ResponseEntity<>("Delete operation could not be performed successfully", HttpStatus.OK);
+        return new ResponseEntity<>(String.format("Delete operation to %s could not be performed successfully",id.toString()),
+                HttpStatus.OK);
     }
 
     @GetMapping("/book/")

@@ -27,9 +27,10 @@ public class AuthorCtr {
     public ResponseEntity<String> postAuthor(@RequestBody Author author){
         Optional<Author> optionalAuthor = authorImp.saveAuthor(author);
         if(optionalAuthor.isPresent()) {
-            return new ResponseEntity<>("OBJECT CREATED!", HttpStatus.OK);
+            return new ResponseEntity<>(String.format("OBJECT WITH CC %s was created!",author.getAuthorCc().getAuthorCCM())
+                    , HttpStatus.OK);
         }
-        return new ResponseEntity<>("OBJECT NOT CREATED!", HttpStatus.CONFLICT);
+        return new ResponseEntity<>(String.format("OBJECT WITH CC %s wasn't created!",author.getAuthorCc().getAuthorCCM()), HttpStatus.CONFLICT);
 
     }
 
@@ -44,7 +45,7 @@ public class AuthorCtr {
     public @ResponseBody ResponseEntity<String> deleteBook(@PathVariable Integer id) {
         Optional<Author> optionalAuthor = authorImp.deleteAuthorById(id);
         if(optionalAuthor.isPresent()) {
-            return new ResponseEntity<>("DELETE Response", HttpStatus.OK);
+            return new ResponseEntity<>(String.format("The ID %s was deleted successfully",id), HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
     }
