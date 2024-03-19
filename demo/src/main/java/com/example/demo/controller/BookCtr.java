@@ -56,6 +56,4 @@ public class BookCtr {
                 orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
-
 }
